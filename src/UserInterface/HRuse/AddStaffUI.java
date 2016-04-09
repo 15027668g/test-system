@@ -7,9 +7,10 @@ import java.awt.event.ActionListener;
 import Domain.*;
 
 public class AddStaffUI extends JFrame {
+	HR HR = new HR();
 	public AddStaffUI() {
 		super("Staff Account Create");
-		this.setSize(500, 300);
+		this.setSize(800, 400);
 		this.setLocation(100,100);
 		
 		JPanel aPanel = new JPanel(new BorderLayout());
@@ -17,7 +18,7 @@ public class AddStaffUI extends JFrame {
 		topPanel.add(new JLabel("New staff personal information"));
 		aPanel.add(topPanel, BorderLayout.NORTH);
 		
-		JPanel centerPanel = new JPanel(new GridLayout(8,4,5,10));
+		JPanel centerPanel = new JPanel(new GridLayout(9,4,5,10));
 		//1st
 		for (int i = 0; i < 4 ; i++)
 		{
@@ -38,28 +39,44 @@ public class AddStaffUI extends JFrame {
 		//4th
 		centerPanel.add(new JPanel());
 		centerPanel.add(new JLabel("Department:"));
-		JTextField departmentText = new JTextField("",20);
-		centerPanel.add(departmentText);
+		String[] departmentArray = { "Accounting", "Engineering", "Administration", "Human Resource", "Business Analyst"};
+		JComboBox departmentList = new JComboBox(departmentArray);
+//		departmentList.setSelectedIndex(6);
+		centerPanel.add(departmentList);		
+//		JTextField departmentText = new JTextField("",20);
+//		centerPanel.add(departmentText);
 		centerPanel.add(new JPanel());
 		//5th
 		centerPanel.add(new JPanel());
 		centerPanel.add(new JLabel("Title:"));
-		JTextField titleText = new JTextField("",20);
-		centerPanel.add(titleText);
+		String[] titleArray = { "Director", "Senior manager", "Junior manager", "Assistance", "Clerk"};
+		JComboBox titleList = new JComboBox(titleArray);
+//		titleList.setSelectedIndex(4);
+		centerPanel.add(titleList);	
+//		JTextField titleText = new JTextField("",20);
+//		centerPanel.add(titleText);
 		centerPanel.add(new JPanel());
 		//6th
+		centerPanel.add(new JPanel());
+		centerPanel.add(new JLabel("Supervisor ID:"));
+//		String[] SupervisorArray = HR.getstaffNameArray();
+//		JComboBox SupervisorList = new JComboBox(SupervisorArray);
+		JTextField supervisorText = new JTextField("",20);
+		centerPanel.add(supervisorText);
+		centerPanel.add(new JPanel());
+		//7th
 		for (int i = 0; i < 4 ; i++)
 		{
 			centerPanel.add(new JPanel());
 		}
-		//7th
+		//8th
 		centerPanel.add(new JPanel());
 		JButton EnterStaffInfoBT = new JButton("Enter"); 
 		centerPanel.add(EnterStaffInfoBT); 
 		JButton CancelInfoBT = new JButton("Cancel");
 		centerPanel.add(CancelInfoBT);
 		centerPanel.add(new JPanel());
-		//8th
+		//9th
 		for (int i = 0; i < 4 ; i++)
 		{
 			centerPanel.add(new JPanel());
@@ -69,14 +86,17 @@ public class AddStaffUI extends JFrame {
 		aPanel.add(centerPanel, BorderLayout.CENTER);
 		this.add(aPanel);
 		this.setVisible(true);
-		HR HR = new HR();
+		
 		ActionListener actListenerEnterBT = new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				String name = nameText.getText();
-				String department = departmentText.getText();
-				String title = titleText.getText();
 				int ageInt = Integer.parseInt(ageText.getText());
-				HR.newStaff(name,department ,title, ageInt);
+				String title = titleList.getSelectedItem().toString();
+				String department = departmentList.getSelectedItem().toString();
+				String supervisorID = supervisorText.getText();
+				
+//				String title = titleText.getText();
+				HR.newStaff(name,department ,title, ageInt, supervisorID);
 				/*
 				Staff someone = new Staff();
 				someone.setName(nameText.getText());
@@ -94,8 +114,8 @@ public class AddStaffUI extends JFrame {
 			public void actionPerformed(ActionEvent e){
 				nameText.setText("");
 				ageText.setText("");
-				departmentText.setText("");
-				titleText.setText("");
+//				departmentText.setText("");
+//				titleText.setText("");
 			}
 		}; 
 		

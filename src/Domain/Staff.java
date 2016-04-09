@@ -8,6 +8,8 @@ public class Staff {
 	private int age;
 	private String department;
 	private String title;
+	private String supervisorID;
+	private String supervisorName;
 
 	public int getid() {
 		return this.id;
@@ -50,4 +52,17 @@ public class Staff {
 	public void settitle(String title) {
 		this.title = title;
 	}
+	public String getsupervisorID(){
+		return this.supervisorID;
+	}
+	public void setsupervisorID(String supervisorID) {
+		this.supervisorID = supervisorID;
+	}
+	public String getsupervisorName(){
+		return this.supervisorName;
+	}
+	public void setsupervisorName(String supervisorName) {
+		this.supervisorName = supervisorName;
+	}
+	
 }
