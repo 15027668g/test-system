@@ -58,7 +58,7 @@ public class MainFrame extends JFrame{
 	
 	private void contentpage(Staff[] staffArray, Staff staff){
 		this.getContentPane().removeAll();
-		/*
+		
 		HeaderUI header = new HeaderUI(staff);
 		this.add(header, BorderLayout.NORTH);
 		
@@ -68,7 +68,19 @@ public class MainFrame extends JFrame{
 		
 		ContentUI content = new ContentUI(staff);
 		this.add(content, BorderLayout.CENTER);
-				*/
+		
+		ActionListener actListenerNewStaffBT = new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				newStaff(staffArray, staff);
+			}
+		};
+		
+		ActionListener actListenerDeleteStaffBT = new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				deleteStaff(staffArray, staff);
+			}
+		};
+		
 		
 		ActionListener actListenerBackBT = new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -76,9 +88,144 @@ public class MainFrame extends JFrame{
 			}
 		};
 		
-//		footer.backBT.addActionListener(actListenerBackBT);
+		content.newStaffBT.addActionListener(actListenerNewStaffBT);
+		content.deleteStaffBT.addActionListener(actListenerDeleteStaffBT);
+		footer.backBT.addActionListener(actListenerBackBT);
 		this.loadpage();
 	}
+	
+	private void newStaff(Staff[] staffArray, Staff staff){
+		this.getContentPane().removeAll();
+		
+		HeaderUI header = new HeaderUI(staff);
+		this.add(header, BorderLayout.NORTH);
+		
+		FooterUI footer = new FooterUI();
+		this.add(footer, BorderLayout.SOUTH);
+		
+		NewStaffUI newStaff = new NewStaffUI(staffArray);
+		this.add(newStaff, BorderLayout.CENTER);
+		
+		
+		ActionListener actListenerEnterBT = new ActionListener(){			
+			public void actionPerformed(ActionEvent e){
+				
+				for(int i = 0; i < staffArray.length; i++ ) {
+					if (staffArray[i].getName() == "null"){
+						staffArray[i].setid(i);
+						staffArray[i].setName(newStaff.nameText.getText());
+						staffArray[i].setpassword(newStaff.passwordText.getText());
+						staffArray[i].settitle(newStaff.titleList.getSelectedItem().toString());
+						staffArray[i].setdepartment(newStaff.departmentList.getSelectedItem().toString());
+						String confirmMessage = "Staff ID: " + staffArray[i].getid()+ "\n"+
+								"Staff Name: " + staffArray[i].getName()+ "\n"+
+								"Staff Title: " + staffArray[i].gettitle()+ "\n"+
+								"Staff department: "+ staffArray[i].getdepartment();
+						JOptionPane.showMessageDialog(newStaff, confirmMessage);
+						break;
+					}
+				}
+				
+//				contentpage(staffArray, staff);
+			}
+		};
+		
+		ActionListener actListenerBackBT = new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				contentpage(staffArray, staff);
+			}
+		};
+
+		footer.enterBT.addActionListener(actListenerEnterBT);
+		footer.backBT.addActionListener(actListenerBackBT);
+		this.loadpage();		
+	}
+	
+	private void deleteStaff(Staff[] staffArray, Staff staff){
+		this.getContentPane().removeAll();
+		
+		HeaderUI header = new HeaderUI(staff);
+		this.add(header, BorderLayout.NORTH);
+		
+		FooterUI footer = new FooterUI();
+		this.add(footer, BorderLayout.SOUTH);
+		
+		DeleteStaffUI deleteStaff = new DeleteStaffUI(staffArray);
+		this.add(deleteStaff, BorderLayout.CENTER);
+		
+		
+		ActionListener actListenerEnterBT = new ActionListener(){			
+			public void actionPerformed(ActionEvent e){
+				String Staffid = deleteStaff.StaffidList.getSelectedItem().toString();
+				int intStaffid = Integer.parseInt(Staffid);
+				staffArray[intStaffid].setName("null");
+				staffArray[intStaffid].setpassword("null");
+				staffArray[intStaffid].setdepartment("null");
+				staffArray[intStaffid].settitle("null"); 
+				String message = "Staff ID " + Staffid + " is deleted";
+				JOptionPane.showMessageDialog(deleteStaff, message);
+				contentpage(staffArray, staff);
+					}
+				};
+				
+//				contentpage(staffArray, staff);
+
+		
+		ActionListener actListenerBackBT = new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				contentpage(staffArray, staff);
+			}
+		};
+
+		footer.enterBT.addActionListener(actListenerEnterBT);
+		footer.backBT.addActionListener(actListenerBackBT);
+		this.loadpage();		
+	}
+	
+	private void assignSupervisor(Staff[] staffArray, Staff staff){
+		this.getContentPane().removeAll();
+		
+		HeaderUI header = new HeaderUI(staff);
+		this.add(header, BorderLayout.NORTH);
+		
+		FooterUI footer = new FooterUI();
+		this.add(footer, BorderLayout.SOUTH);
+		
+		DeleteStaffUI deleteStaff = new DeleteStaffUI(staffArray);
+		this.add(deleteStaff, BorderLayout.CENTER);
+		
+		
+		ActionListener actListenerEnterBT = new ActionListener(){			
+			public void actionPerformed(ActionEvent e){
+				String Staffid = deleteStaff.StaffidList.getSelectedItem().toString();
+				int intStaffid = Integer.parseInt(Staffid);
+				staffArray[intStaffid].setName("null");
+				staffArray[intStaffid].setpassword("null");
+				staffArray[intStaffid].setdepartment("null");
+				staffArray[intStaffid].settitle("null"); 
+				String message = "Staff ID " + Staffid + " is deleted";
+				JOptionPane.showMessageDialog(deleteStaff, message);
+				contentpage(staffArray, staff);
+					}
+				};
+				
+//				contentpage(staffArray, staff);
+
+		
+		ActionListener actListenerBackBT = new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				contentpage(staffArray, staff);
+			}
+		};
+
+		footer.enterBT.addActionListener(actListenerEnterBT);
+		footer.backBT.addActionListener(actListenerBackBT);
+		this.loadpage();		
+	}
+	
+	
+	
+	
 	private void loadpage() {
 
 		this.revalidate();
