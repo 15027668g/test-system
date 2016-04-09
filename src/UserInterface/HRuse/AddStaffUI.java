@@ -96,7 +96,7 @@ public class AddStaffUI extends JFrame {
 				String supervisorID = supervisorText.getText();
 				
 //				String title = titleText.getText();
-				HR.newStaff(name,department ,title, ageInt, supervisorID);
+//				HR.newStaff(name,department ,title, ageInt, supervisorID);
 				/*
 				Staff someone = new Staff();
 				someone.setName(nameText.getText());

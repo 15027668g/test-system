@@ -4,23 +4,25 @@ public class HR {
 	private int staffNo = 0; 
 	
 	Staff[] staff = new Staff[1000]; {
-		staff[staffNo]= new Staff();
-	}
-	public String[] staffNameArray;
-	
-	public String[] getstaffNameArray() {
-		return staffNameArray;
+		for (int i = 0; i < 1000; i++){
+			staff[i] = new Staff(i, "null", "null", "null", "null");
+		}		
+		staff[staffNo]= new Staff(staffNo, "1234", "admin", "HR", "admin");
 	}
 	
-/*	public void setid() {
+	
+	public Staff[] getstaffArray() {
+		return staff;
+	}
+/*
+	public void setid() {
 		System.out.println(staffNo);
 		this.staffNo ++;
-	} */
+	} 
 	
 	public void newStaff(String name,String department,String title, int age, String supervisorID) {
 		this.staff[staffNo].setid(this.staffNo);
 		this.staff[staffNo].setName(name);
-		this.staff[staffNo].setage(age);
 		this.staff[staffNo].settitle(title);
 		this.staff[staffNo].setdepartment(department);
 		this.staff[staffNo].settitle(title);
@@ -37,16 +39,12 @@ public class HR {
 //		this.staffNameArray[staffNo] = this.staff[staffNo].getName();
 		System.out.println(this.staff[staffNo].getid());
 		System.out.println(this.staff[staffNo].getName());
-		System.out.println(this.staff[staffNo].getage());
 		System.out.println(this.staff[staffNo].getdepartment());
 		System.out.println(this.staff[staffNo].gettitle());
 		System.out.println(this.staff[staffNo].getsupervisorID());
 		
 		this.staffNo++;
-		staff[staffNo]= new Staff();
+//		staff[staffNo]= new Staff();
 	}
-	
-	public void deleteStaff() {
-		
-	}
+	*/
 }
