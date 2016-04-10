@@ -206,15 +206,19 @@ public class MainFrame extends JFrame{
 		ActionListener actListenerEnterBT = new ActionListener(){			
 			public void actionPerformed(ActionEvent e){
 				
+				String message;
 				String Staffid = assignSupervisor.StaffIdList.getSelectedItem().toString();
 				String Supervisorid = assignSupervisor.SupervisorIdList.getSelectedItem().toString();
 				int intStaffid = Integer.parseInt(Staffid);
-				int intSupervisorid = Integer.parseInt(Supervisorid);
-				staffArray[intStaffid].setsupervisorID(intSupervisorid);
-				String message = "Staff ID " + Staffid + " is assigned a supervisor ID " + Supervisorid;
+//				int intSupervisorid = Integer.parseInt(Supervisorid);
+				if (staffArray[intStaffid].gettitle() != "Director") {
+					staffArray[intStaffid].setsupervisorID(Supervisorid);
+					message = "Staff ID " + Staffid + " is assigned a supervisor ID " + Supervisorid;
+					contentpage(staffArray, staff);
+				} else {
+					message = "No Supervisor assigned for Director";
+				}
 				JOptionPane.showMessageDialog(assignSupervisor, message);
-							
-				contentpage(staffArray, staff);
 					}
 				};
 				
