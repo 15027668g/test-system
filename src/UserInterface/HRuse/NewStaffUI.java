@@ -1,4 +1,4 @@
-package UserInterface;
+package UserInterface.HRuse;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -11,12 +11,12 @@ import Domain.*;
 
 public class NewStaffUI extends JPanel{
 	
-	JTextField nameText = new JTextField("",20);
-	JTextField passwordText = new JTextField("",20);
-	String[] departmentArray = { "Accounting", "Engineering", "Administration", "Human Resource", "Business Analyst"};
-	JComboBox departmentList = new JComboBox(departmentArray);
-	String[] titleArray = {"Director", "Senior manager", "Junior manager", "Assistance", "Clerk"};
-	JComboBox titleList = new JComboBox(titleArray);
+	public JTextField nameText = new JTextField("",20);
+	public JTextField passwordText = new JTextField("",20);
+	public String[] departmentArray = { "Accounting", "Engineering", "Administration", "Human Resource", "Business Analyst"};
+	public JComboBox departmentList = new JComboBox(departmentArray);
+	public String[] titleArray = {"Director", "Senior manager", "Junior manager", "Assistance", "Clerk"};
+	public JComboBox titleList = new JComboBox(titleArray);
 	
 	
 	public NewStaffUI(Staff[] staffArray){

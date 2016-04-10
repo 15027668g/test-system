@@ -1,4 +1,4 @@
-package UserInterface.HRuse;
+package dummy;
 
 import javax.swing.*;
 

@@ -3,10 +3,11 @@ package UserInterface;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import Domain.*;
+import UserInterface.HRuse.*;
+
 
 
 public class MainFrame extends JFrame{
@@ -81,6 +82,12 @@ public class MainFrame extends JFrame{
 			}
 		};
 		
+		ActionListener actListenerAssignSupervisorBT = new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				assignSupervisor(staffArray, staff);
+			}
+		};
+		
 		
 		ActionListener actListenerBackBT = new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -90,6 +97,7 @@ public class MainFrame extends JFrame{
 		
 		content.newStaffBT.addActionListener(actListenerNewStaffBT);
 		content.deleteStaffBT.addActionListener(actListenerDeleteStaffBT);
+		content.assignSupervisorBT.addActionListener(actListenerAssignSupervisorBT);
 		footer.backBT.addActionListener(actListenerBackBT);
 		this.loadpage();
 	}
@@ -191,20 +199,21 @@ public class MainFrame extends JFrame{
 		FooterUI footer = new FooterUI();
 		this.add(footer, BorderLayout.SOUTH);
 		
-		DeleteStaffUI deleteStaff = new DeleteStaffUI(staffArray);
-		this.add(deleteStaff, BorderLayout.CENTER);
+		AssignSupervisorUI assignSupervisor = new AssignSupervisorUI(staffArray);
+		this.add(assignSupervisor, BorderLayout.CENTER);
 		
 		
 		ActionListener actListenerEnterBT = new ActionListener(){			
 			public void actionPerformed(ActionEvent e){
-				String Staffid = deleteStaff.StaffidList.getSelectedItem().toString();
+				
+				String Staffid = assignSupervisor.StaffIdList.getSelectedItem().toString();
+				String Supervisorid = assignSupervisor.SupervisorIdList.getSelectedItem().toString();
 				int intStaffid = Integer.parseInt(Staffid);
-				staffArray[intStaffid].setName("null");
-				staffArray[intStaffid].setpassword("null");
-				staffArray[intStaffid].setdepartment("null");
-				staffArray[intStaffid].settitle("null"); 
-				String message = "Staff ID " + Staffid + " is deleted";
-				JOptionPane.showMessageDialog(deleteStaff, message);
+				int intSupervisorid = Integer.parseInt(Supervisorid);
+				staffArray[intStaffid].setsupervisorID(intSupervisorid);
+				String message = "Staff ID " + Staffid + " is assigned a supervisor ID " + Supervisorid;
+				JOptionPane.showMessageDialog(assignSupervisor, message);
+							
 				contentpage(staffArray, staff);
 					}
 				};

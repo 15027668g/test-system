@@ -7,7 +7,7 @@ public class Staff {
 	private String name;
 	private String department;
 	private String title;
-	private String supervisorID;
+	private int supervisorID;
 	private String supervisorName;
 
 	public Staff(int id, String password, String name, String department, String title) {
@@ -51,10 +51,10 @@ public class Staff {
 	public void settitle(String title) {
 		this.title = title;
 	}
-	public String getsupervisorID(){
+	public int getsupervisorID(){
 		return this.supervisorID;
 	}
-	public void setsupervisorID(String supervisorID) {
+	public void setsupervisorID(int supervisorID) {
 		this.supervisorID = supervisorID;
 	}
 	public String getsupervisorName(){
