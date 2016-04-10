@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import Domain.*;
 import UserInterface.HRuse.*;
+import UserInterface.Staff.*;
 
 
 
@@ -88,6 +89,12 @@ public class MainFrame extends JFrame{
 			}
 		};
 		
+		ActionListener actListenerLeaveAppBT = new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				requestLeave(staffArray, staff);
+			}
+		};
+		
 		
 		ActionListener actListenerBackBT = new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -98,6 +105,7 @@ public class MainFrame extends JFrame{
 		content.newStaffBT.addActionListener(actListenerNewStaffBT);
 		content.deleteStaffBT.addActionListener(actListenerDeleteStaffBT);
 		content.assignSupervisorBT.addActionListener(actListenerAssignSupervisorBT);
+		content.requestLeaveBT.addActionListener(actListenerLeaveAppBT);
 		footer.backBT.addActionListener(actListenerBackBT);
 		this.loadpage();
 	}
@@ -189,7 +197,7 @@ public class MainFrame extends JFrame{
 		footer.backBT.addActionListener(actListenerBackBT);
 		this.loadpage();		
 	}
-	
+		
 	private void assignSupervisor(Staff[] staffArray, Staff staff){
 		this.getContentPane().removeAll();
 		
@@ -230,14 +238,48 @@ public class MainFrame extends JFrame{
 				contentpage(staffArray, staff);
 			}
 		};
-
+		
 		footer.enterBT.addActionListener(actListenerEnterBT);
 		footer.backBT.addActionListener(actListenerBackBT);
 		this.loadpage();		
 	}
 	
-	
-	
+	private void requestLeave(Staff[] staffArray, Staff staff){
+		this.getContentPane().removeAll();
+		
+		HeaderUI header = new HeaderUI(staff);
+		this.add(header, BorderLayout.NORTH);
+		
+		FooterUI footer = new FooterUI();
+		this.add(footer, BorderLayout.SOUTH);
+		
+		requestLeaveUI requestLeave = new requestLeaveUI();
+		this.add(requestLeave, BorderLayout.CENTER);
+		
+		
+		ActionListener actListenerEnterBT = new ActionListener(){			
+			public void actionPerformed(ActionEvent e){
+				String startDate = requestLeave.startDateTF.getText();
+				String endDate = requestLeave.endDateTF.getText();
+				LeaveApp leaveApp = new LeaveApp(startDate, endDate, staff.getid());
+				
+				String message = "Leave Applied:\nStartDate: " + startDate + "\nEndDate: " + endDate;
+				JOptionPane.showMessageDialog(requestLeave, message);
+				
+				contentpage(staffArray, staff);
+				}
+		};
+						
+		ActionListener actListenerBackBT = new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				contentpage(staffArray, staff);
+			}
+		};
+
+		footer.enterBT.addActionListener(actListenerEnterBT);
+		footer.backBT.addActionListener(actListenerBackBT);
+		this.loadpage();		
+	}
 	
 	private void loadpage() {
 

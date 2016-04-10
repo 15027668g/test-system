@@ -1,5 +1,8 @@
 package Domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Staff {
 	
 	private int id;
@@ -9,6 +12,9 @@ public class Staff {
 	private String title;
 	private String supervisorID;
 	private String supervisorName;
+	private List<LeaveApp> leaveApplyList;
+
+	
 
 	public Staff(int id, String password, String name, String department, String title) {
 	
@@ -18,11 +24,10 @@ public class Staff {
 		this.department = department;
 		this.title = title;
 	}
-		
+	
 	public int getid() {
 		return this.id;
 	}
-	
 	public void setid(int id){
 		this.id = id;
 	}
@@ -62,6 +67,18 @@ public class Staff {
 	}
 	public void setsupervisorName(String supervisorName) {
 		this.supervisorName = supervisorName;
+	}
+	public List<LeaveApp> getLeaveApplyList() {
+		return leaveApplyList;
+	}
+	public void setLeaveApplyList(List<LeaveApp> leaveApplyList) {
+		this.leaveApplyList = leaveApplyList;
+	}
+	public void addLeaveApply(LeaveApp LeaveApp) {
+		this.getLeaveApplyList().add(LeaveApp);
+	}
+	public void removeLeaveApply(LeaveApp LeaveApp) {
+		this.getLeaveApplyList().remove(LeaveApp);
 	}
 	
 }

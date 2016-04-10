@@ -6,13 +6,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import Domain.*;
 
 public class NewStaffUI extends JPanel{
 	
 	public JTextField nameText = new JTextField("",20);
-	public JTextField passwordText = new JTextField("",20);
+	public JPasswordField passwordText = new JPasswordField("",20);
 	public String[] departmentArray = { "Accounting", "Engineering", "Administration", "Human Resource", "Business Analyst"};
 	public JComboBox departmentList = new JComboBox(departmentArray);
 	public String[] titleArray = {"Director", "Senior manager", "Junior manager", "Assistance", "Clerk"};

@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class LoginWindowUI extends JPanel {
 	public JTextField id = new JTextField("",20);
-	public JTextField password = new JTextField("",20);
+	public JTextField password = new JPasswordField("",20);
 	public LoginWindowUI(){
 		
 		JPanel aPanel = new JPanel(new BorderLayout());

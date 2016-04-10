@@ -1,12 +1,9 @@
 package UserInterface.HRuse;
 
 import javax.swing.JPanel;
-
 import java.awt.GridLayout;
-
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-
 import Domain.Staff;
 
 
