@@ -16,7 +16,7 @@ public class NewStaffUI extends JPanel{
 	public JPasswordField passwordText = new JPasswordField("",20);
 	public String[] departmentArray = { "Accounting", "Engineering", "Administration", "Human Resource", "Business Analyst"};
 	public JComboBox departmentList = new JComboBox(departmentArray);
-	public String[] titleArray = {"Director", "Senior manager", "Junior manager", "Assistance", "Clerk"};
+	public String[] titleArray = {"Senior manager", "Junior manager", "Assistance", "Clerk","Director"};
 	public JComboBox titleList = new JComboBox(titleArray);
 	
 	

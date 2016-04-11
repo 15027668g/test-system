@@ -15,13 +15,13 @@ public class ContentUI extends JPanel {
 	
 	public ContentUI(Staff staff){
 		
-		if (staff.gettitle().equals("admin")) {
+		if (staff.getdepartment().equals("Human Resource")) {
 			this.add(newStaffBT);
 			this.add(assignSupervisorBT);
 			this.add(deleteStaffBT);
 		} else {
 			this.add(requestLeaveBT);
-			this.add(requestViewBT);
+//			this.add(requestViewBT);
 			this.add(requestHandleBT);
 		}
 	}

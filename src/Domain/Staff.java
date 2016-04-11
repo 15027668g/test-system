@@ -3,6 +3,7 @@ package Domain;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Staff {
 	
 	private int id;
@@ -12,9 +13,8 @@ public class Staff {
 	private String title;
 	private String supervisorID;
 	private String supervisorName;
-	private List<LeaveApp> leaveApplyList;
-
-	
+	public List<LeaveApp> leaveApplyList = new ArrayList<LeaveApp>();
+	public List<LeaveApp> handleApplyList = new ArrayList<LeaveApp>();
 
 	public Staff(int id, String password, String name, String department, String title) {
 	
@@ -23,6 +23,7 @@ public class Staff {
 		this.name = name;
 		this.department = department;
 		this.title = title;
+		this.supervisorID = null;
 	}
 	
 	public int getid() {
@@ -79,6 +80,22 @@ public class Staff {
 	}
 	public void removeLeaveApply(LeaveApp LeaveApp) {
 		this.getLeaveApplyList().remove(LeaveApp);
+	}
+	
+	public List<LeaveApp> getHandleApplyList() {
+		return handleApplyList;
+	}
+	public void setHandleApplyList(List<LeaveApp> handleApplyList) {
+		this.handleApplyList = handleApplyList;
+	}
+	public void addHandleApply(LeaveApp LeaveApp) {
+		this.getHandleApplyList().add(LeaveApp);
+	}
+	public void removeHandleApply(LeaveApp LeaveApp) {
+		this.getHandleApplyList().remove(LeaveApp);
+	}
+	public boolean handleLeaveApply(){
+		return true;
 	}
 	
 }

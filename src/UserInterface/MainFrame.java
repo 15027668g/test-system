@@ -22,7 +22,7 @@ public class MainFrame extends JFrame{
 		login(staff);
 //		System.out.print(staff[1].getName());
 	}
-
+// Login in page***************************************
 	private void login(Staff[] staff){
 		this.getContentPane().removeAll();
 		
@@ -40,12 +40,12 @@ public class MainFrame extends JFrame{
 
 			for (int i = 0; i < 1000; i++){
 				if (id == staff[i].getid() && password.equals(staff[i].getpassword())) {
-					contentpage(staff, staff[i]); // go to content panel
+					contentpage(staff, staff[i]); 
 //					System.out.print("OK");
 					break;
 				}else if (i == 999) {
 
-				// invalid authentication
+				// invalid login
 				JOptionPane.showMessageDialog(LoginWindow, "Staff ID or Password is invalid.");
 				}
 			}
@@ -56,8 +56,7 @@ public class MainFrame extends JFrame{
 	this.loadpage();
 }
 
-
-	
+// content page***************************************
 	private void contentpage(Staff[] staffArray, Staff staff){
 		this.getContentPane().removeAll();
 		
@@ -70,6 +69,10 @@ public class MainFrame extends JFrame{
 		
 		ContentUI content = new ContentUI(staff);
 		this.add(content, BorderLayout.CENTER);
+		if (staff.gettitle() == "Director"){
+			content.requestLeaveBT.setEnabled(false);
+		}
+		
 		
 		ActionListener actListenerNewStaffBT = new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -95,6 +98,12 @@ public class MainFrame extends JFrame{
 			}
 		};
 		
+		ActionListener actListenerRequestHandleBT = new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				handleLeave(staffArray, staff);
+			}
+		};
+		
 		
 		ActionListener actListenerBackBT = new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -106,10 +115,12 @@ public class MainFrame extends JFrame{
 		content.deleteStaffBT.addActionListener(actListenerDeleteStaffBT);
 		content.assignSupervisorBT.addActionListener(actListenerAssignSupervisorBT);
 		content.requestLeaveBT.addActionListener(actListenerLeaveAppBT);
+		content.requestHandleBT.addActionListener(actListenerRequestHandleBT);
 		footer.backBT.addActionListener(actListenerBackBT);
 		this.loadpage();
 	}
-	
+
+	// New staff  page***************************************
 	private void newStaff(Staff[] staffArray, Staff staff){
 		this.getContentPane().removeAll();
 		
@@ -157,6 +168,7 @@ public class MainFrame extends JFrame{
 		this.loadpage();		
 	}
 	
+	// Delete staff  page***************************************	
 	private void deleteStaff(Staff[] staffArray, Staff staff){
 		this.getContentPane().removeAll();
 		
@@ -197,7 +209,7 @@ public class MainFrame extends JFrame{
 		footer.backBT.addActionListener(actListenerBackBT);
 		this.loadpage();		
 	}
-		
+	// Assign Supervisor  page***************************************	
 	private void assignSupervisor(Staff[] staffArray, Staff staff){
 		this.getContentPane().removeAll();
 		
@@ -244,6 +256,7 @@ public class MainFrame extends JFrame{
 		this.loadpage();		
 	}
 	
+	// Apply Leave page***************************************
 	private void requestLeave(Staff[] staffArray, Staff staff){
 		this.getContentPane().removeAll();
 		
@@ -252,8 +265,11 @@ public class MainFrame extends JFrame{
 		
 		FooterUI footer = new FooterUI();
 		this.add(footer, BorderLayout.SOUTH);
+		if (staff.leaveApplyList.size() != 0){
+			footer.enterBT.setEnabled(false);
+		}
 		
-		requestLeaveUI requestLeave = new requestLeaveUI();
+		requestLeaveUI requestLeave = new requestLeaveUI(staff);
 		this.add(requestLeave, BorderLayout.CENTER);
 		
 		
@@ -262,10 +278,75 @@ public class MainFrame extends JFrame{
 				String startDate = requestLeave.startDateTF.getText();
 				String endDate = requestLeave.endDateTF.getText();
 				LeaveApp leaveApp = new LeaveApp(startDate, endDate, staff.getid());
+				staff.leaveApplyList.add(leaveApp);
+				
+				String staffSupervisorID = staff.getsupervisorID();
+				int intStaffSupervisorID = Integer.parseInt(staffSupervisorID);
+				staffArray[intStaffSupervisorID].addHandleApply(leaveApp);    //add request to handle list
 				
 				String message = "Leave Applied:\nStartDate: " + startDate + "\nEndDate: " + endDate;
 				JOptionPane.showMessageDialog(requestLeave, message);
 				
+				contentpage(staffArray, staff);
+				}
+		};
+		
+		ActionListener actListenerAcknowledgeBT = new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				staff.leaveApplyList.remove(0);
+				contentpage(staffArray, staff);
+			}
+		};
+						
+		ActionListener actListenerBackBT = new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				contentpage(staffArray, staff);
+			}
+		};
+
+		footer.enterBT.addActionListener(actListenerEnterBT);
+		requestLeave.acknowledgeBT.addActionListener(actListenerAcknowledgeBT);
+		footer.backBT.addActionListener(actListenerBackBT);
+		this.loadpage();		
+	}
+	
+	// handle leave  page***************************************
+	private void handleLeave(Staff[] staffArray, Staff staff){
+		this.getContentPane().removeAll();
+		
+		HeaderUI header = new HeaderUI(staff);
+		this.add(header, BorderLayout.NORTH);
+		
+		FooterUI footer = new FooterUI();
+		this.add(footer, BorderLayout.SOUTH);
+		
+		handleLeaveUI handleLeave = new handleLeaveUI(staffArray, staff);
+		this.add(handleLeave, BorderLayout.CENTER);
+		
+		
+		ActionListener actListenerEnterBT = new ActionListener(){			
+			public void actionPerformed(ActionEvent e){
+				// chain of responsibility
+				LeaveApp LeaveApp = staff.getHandleApplyList().get(0);
+				String message;
+				Staff applicant = staffArray[LeaveApp.getStaffid()];
+				LeaveApp applicantLeaveapp0 = applicant.getLeaveApplyList().get(0);
+				if(handleLeave.endorseJRB.isSelected()){
+					String supervisorID = staff.getsupervisorID();
+					if(supervisorID != null){
+						int intSupervisorID = Integer.parseInt(supervisorID);
+						staffArray[intSupervisorID].addHandleApply(LeaveApp);
+						message = "Leave Endorsed. Passed the endorsement to your supervisor.";
+					} else {
+						applicantLeaveapp0.leaveEndorsed = 1;
+						message = "Leave Endorsed. Staff apply leave successfully";
+					}
+				} else {
+					applicantLeaveapp0.leaveEndorsed = 0;
+					message = "Leave Declined. System will remind the applicant.";
+				}
+				JOptionPane.showMessageDialog(handleLeave, message);
+				staff.removeHandleApply(LeaveApp);
 				contentpage(staffArray, staff);
 				}
 		};

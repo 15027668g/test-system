@@ -3,15 +3,15 @@ package Domain;
 public class LeaveApp {
 	public String startDate;
 	public String endDate;
-	public Boolean leaveEndorsed;
-	public int staffid;
+	public int leaveEndorsed;
+	public int applicantid;
 	
 	
-	public LeaveApp(String startDate, String endDate, int staffid) {
+	public LeaveApp(String startDate, String endDate, int applicantid) {
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.leaveEndorsed = null;
-		this.staffid = staffid;
+		this.leaveEndorsed = 2;
+		this.applicantid = applicantid;
 	}
 	public String getStartDate(){
 		return this.startDate;
@@ -28,16 +28,16 @@ public class LeaveApp {
 		this.endDate = endDate;
 	}
 	public int getStaffid(){
-		return this.staffid;
+		return this.applicantid;
 	}
 	public void setStaffid(int staffid){
-		this.staffid = staffid;
+		this.applicantid = staffid;
 	}
 	
-	public boolean getleaveEndorsed(){
+	public int getleaveEndorsed(){
 		return this.leaveEndorsed;
 	}
-	public void setleaveEndorsed(boolean leaveEndorsed){
+	public void setleaveEndorsed(int leaveEndorsed){
 		this.leaveEndorsed = leaveEndorsed;
 	}
 
